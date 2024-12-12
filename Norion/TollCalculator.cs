@@ -20,10 +20,8 @@ public class TollCalculator
             var nextFee = GetTollFee(date, vehicle);
             var tempFee = GetTollFee(intervalStart, vehicle);
 
-            long diffInMillies = date.Millisecond - intervalStart.Millisecond;
-            var minutes = diffInMillies / 1000 / 60;
-
-            if (minutes <= 60)
+            var diff = date - intervalStart;
+            if (diff.TotalMinutes <= 60)
             {
                 if (totalFee > 0) totalFee -= tempFee;
                 if (nextFee >= tempFee) tempFee = nextFee;
