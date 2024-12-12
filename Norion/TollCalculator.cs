@@ -15,18 +15,18 @@ public class TollCalculator
 
         var intervalStart = dates[0];
         var totalFee = 0;
+        var baseFee = GetTollFee(intervalStart, vehicle);
         foreach (var date in dates)
         {
             var nextFee = GetTollFee(date, vehicle);
-            var tempFee = GetTollFee(intervalStart, vehicle);
 
             var diff = date - intervalStart;
             if (diff.TotalMinutes <= 60)
             {
                 if (totalFee > 0)
-                    totalFee -= tempFee;
+                    totalFee -= baseFee;
 
-                totalFee += Math.Max(nextFee, tempFee);
+                totalFee += Math.Max(nextFee, baseFee);
             }
             else
             {
