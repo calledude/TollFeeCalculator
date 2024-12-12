@@ -1,6 +1,4 @@
-﻿using System;
-using System.Globalization;
-using TollFeeCalculator;
+﻿namespace TollFeeCalculator;
 
 public class TollCalculator
 {
