@@ -8,7 +8,7 @@ public class TollCalculator
     /// <param name="vehicle">The vehicle</param>
     /// <param name="dates">Date and time of all passes on one day</param>
     /// <returns>The total toll fee for that day.</returns>
-    public int GetTollFee(Vehicle vehicle, DateTime[] dates)
+    public int GetTollFee(IVehicle vehicle, DateTime[] dates)
     {
         if (dates.Length == 0)
             return 0;
@@ -38,19 +38,22 @@ public class TollCalculator
         return totalFee;
     }
 
-    private bool IsTollFreeVehicle(Vehicle vehicle)
+    private bool IsTollFreeVehicle(IVehicle vehicle)
     {
-        if (vehicle == null) return false;
-        var vehicleType = vehicle.GetVehicleType();
-        return vehicleType.Equals(VehicleType.Motorbike.ToString()) ||
-               vehicleType.Equals(VehicleType.Tractor.ToString()) ||
-               vehicleType.Equals(VehicleType.Emergency.ToString()) ||
-               vehicleType.Equals(VehicleType.Diplomat.ToString()) ||
-               vehicleType.Equals(VehicleType.Foreign.ToString()) ||
-               vehicleType.Equals(VehicleType.Military.ToString());
+        if (vehicle == null)
+            return false;
+
+        return vehicle.IsTollFree;
+
+        //return vehicleType.Equals(VehicleType.Motorbike.ToString()) ||
+        //       vehicleType.Equals(VehicleType.Tractor.ToString()) ||
+        //       vehicleType.Equals(VehicleType.Emergency.ToString()) ||
+        //       vehicleType.Equals(VehicleType.Diplomat.ToString()) ||
+        //       vehicleType.Equals(VehicleType.Foreign.ToString()) ||
+        //       vehicleType.Equals(VehicleType.Military.ToString());
     }
 
-    public int GetTollFee(DateTime date, Vehicle vehicle)
+    public int GetTollFee(DateTime date, IVehicle vehicle)
     {
         if (IsTollFreeDate(date) || IsTollFreeVehicle(vehicle)) return 0;
 
