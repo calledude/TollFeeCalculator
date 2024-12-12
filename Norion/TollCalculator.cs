@@ -23,9 +23,10 @@ public class TollCalculator
             var diff = date - intervalStart;
             if (diff.TotalMinutes <= 60)
             {
-                if (totalFee > 0) totalFee -= tempFee;
-                if (nextFee >= tempFee) tempFee = nextFee;
-                totalFee += tempFee;
+                if (totalFee > 0)
+                    totalFee -= tempFee;
+
+                totalFee += Math.Max(nextFee, tempFee);
             }
             else
             {
