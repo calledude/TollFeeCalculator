@@ -1,6 +1,6 @@
 ﻿namespace TollFeeCalculator;
 
-public class TollCalculator
+public static class TollCalculator
 {
     /// <summary>
     /// Calculate the total toll fee for one day
@@ -8,7 +8,7 @@ public class TollCalculator
     /// <param name="vehicle">The vehicle</param>
     /// <param name="dates">Date and time of all passes on one day</param>
     /// <returns>The total toll fee for that day.</returns>
-    public int GetTollFee(IVehicle vehicle, DateTime[] dates)
+    public static int GetTollFee(IVehicle vehicle, DateTime[] dates)
     {
         if (dates.Length == 0)
             return 0;
@@ -37,7 +37,7 @@ public class TollCalculator
         return Math.Min(totalFee, 60);
     }
 
-    private bool IsTollFreeVehicle(IVehicle vehicle)
+    private static bool IsTollFreeVehicle(IVehicle vehicle)
     {
         if (vehicle == null)
             return false;
@@ -52,7 +52,7 @@ public class TollCalculator
         //       vehicleType.Equals(VehicleType.Military.ToString());
     }
 
-    public int GetTollFee(DateTime date, IVehicle vehicle)
+    public static int GetTollFee(DateTime date, IVehicle vehicle)
     {
         if (IsTollFreeDate(date) || IsTollFreeVehicle(vehicle)) return 0;
 
@@ -71,7 +71,7 @@ public class TollCalculator
         else return 0;
     }
 
-    private bool IsTollFreeDate(DateTime date)
+    private static bool IsTollFreeDate(DateTime date)
     {
         var year = date.Year;
         var month = date.Month;
