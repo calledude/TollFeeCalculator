@@ -2,7 +2,7 @@
 
 public class Car : Vehicle
 {
-    public String GetVehicleType()
+    public string GetVehicleType()
     {
         return "Car";
     }
