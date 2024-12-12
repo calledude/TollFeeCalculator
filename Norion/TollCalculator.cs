@@ -33,8 +33,8 @@ public class TollCalculator
                 totalFee += nextFee;
             }
         }
-        if (totalFee > 60) totalFee = 60;
-        return totalFee;
+
+        return Math.Min(totalFee, 60);
     }
 
     private bool IsTollFreeVehicle(IVehicle vehicle)
