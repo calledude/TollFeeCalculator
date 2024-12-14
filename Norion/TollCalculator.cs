@@ -1,4 +1,5 @@
 ﻿using Norion;
+using Norion.Vehicles;
 
 namespace TollFeeCalculator;
 
@@ -56,13 +57,6 @@ public static class TollCalculator
             return false;
 
         return vehicle.IsTollFree;
-
-        //return vehicleType.Equals(VehicleType.Motorbike.ToString()) ||
-        //       vehicleType.Equals(VehicleType.Tractor.ToString()) ||
-        //       vehicleType.Equals(VehicleType.Emergency.ToString()) ||
-        //       vehicleType.Equals(VehicleType.Diplomat.ToString()) ||
-        //       vehicleType.Equals(VehicleType.Foreign.ToString()) ||
-        //       vehicleType.Equals(VehicleType.Military.ToString());
     }
 
     public static int GetTollFee(DateTime date, IVehicle vehicle)

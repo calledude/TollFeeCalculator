@@ -1,4 +1,4 @@
-﻿namespace TollFeeCalculator;
+﻿namespace Norion.Vehicles;
 
 public class Car : IVehicle
 {
