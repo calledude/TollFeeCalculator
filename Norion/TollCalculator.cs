@@ -1,5 +1,5 @@
-﻿using Norion;
-using Norion.Calendar;
+﻿using Norion.Calendar;
+using Norion.FeeHandling;
 using Norion.Vehicles;
 
 namespace TollFeeCalculator;

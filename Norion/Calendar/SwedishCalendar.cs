@@ -35,6 +35,7 @@ public class SwedishCalendar : ICalendar
             (Month.December, 25) => true,
             (Month.December, 26) => true,
             (Month.December, 31) => true,
+
             _ => false,
         };
     }

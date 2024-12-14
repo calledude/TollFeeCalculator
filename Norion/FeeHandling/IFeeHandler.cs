@@ -1,4 +1,4 @@
-﻿namespace Norion;
+﻿namespace Norion.FeeHandling;
 
 public interface IFeeHandler
 {

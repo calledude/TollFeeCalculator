@@ -1,4 +1,4 @@
-﻿namespace Norion;
+﻿namespace Norion.FeeHandling;
 
 public class TimeWindowFeeHandler : IFeeHandler
 {
