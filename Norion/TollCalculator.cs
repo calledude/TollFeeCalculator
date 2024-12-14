@@ -32,26 +32,15 @@ public static class TollCalculator
         if (IsTollFreeVehicle(vehicle))
             return 0;
 
-        var intervalStart = dates[0];
-        var totalFee = 0;
-        var baseFee = GetTollFee(intervalStart);
-        foreach (var date in dates)
-        {
-            var nextFee = GetTollFee(date);
+        // Assumption from original:
+        // totalFee -= baseFee is inherently incorrect seeing as multiple passes can exist within an hour from the 'base'
 
-            var diff = date - intervalStart;
-            if (diff.TotalMinutes <= 60)
-            {
-                if (totalFee > 0)
-                    totalFee -= baseFee;
+        var orderedDates = dates.Order();
+        var firstDate = orderedDates.First();
 
-                totalFee += Math.Max(nextFee, baseFee);
-            }
-            else
-            {
-                totalFee += nextFee;
-            }
-        }
+        var totalFee = orderedDates
+            .GroupBy(date => (int)(date - firstDate).TotalHours)
+            .Sum(hourWindow => hourWindow.Max(GetTollFee));
 
         return Math.Min(totalFee, 60);
     }
