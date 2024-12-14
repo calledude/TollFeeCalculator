@@ -77,44 +77,7 @@ public static class TollCalculator
         if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
             return true;
 
-        var month = (Month)date.Month;
-        var day = date.Day;
-
-        // These dates are all very clearly holiday dates
-        // Just noting that down here since holidays aren't... Universal.
-        // So while this switch might hold for, say, Sweden, it might be completely wrong for another country.
-        // Norway for example has 17th of May as a national holiday rather than the equivalent 6th of June in Sweden.
-        // Possibly revise this by having an implementation of 'NationalCalendar' that holds information of such holidays instead.
-        //
-        // return calendar.IsPublicHoliday(date);
-        return (month, day) switch
-        {
-            (Month.January, 1) => true,
-
-            // Possibly easter? Will fluctuate from year to year, might have held for 2013
-            (Month.March, 28) => true,
-            (Month.March, 29) => true,
-
-            (Month.April, 1) => true,
-            (Month.April, 30) => true,
-
-            (Month.May, 1) => true,
-            (Month.May, 8) => true,
-            (Month.May, 9) => true,
-
-            (Month.June, 5) => true,
-            (Month.June, 6) => true,
-            (Month.June, 21) => true,
-
-            (Month.July, _) => true,
-
-            (Month.November, 1) => true,
-
-            (Month.December, 24) => true,
-            (Month.December, 25) => true,
-            (Month.December, 26) => true,
-            (Month.December, 31) => true,
-            _ => false,
-        };
+        var calendar = CalendarFactory.GetCalendar();
+        return calendar.IsPublicHoliday(date);
     }
 }
