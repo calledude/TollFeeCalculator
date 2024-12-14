@@ -80,28 +80,28 @@ public static class TollCalculator
         if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
             return true;
 
-        if (month == 1 && day == 1)
+        if (month is 1 && day is 1)
             return true;
 
-        if (month == 3 && (day == 28 || day == 29))
+        if (month is 3 && (day is 28 or 29))
             return true;
 
-        if (month == 4 && (day == 1 || day == 30))
+        if (month is 4 && (day is 1 or 30))
             return true;
 
-        if (month == 5 && (day == 1 || day == 8 || day == 9))
+        if (month is 5 && (day is 1 or 8 or 9))
             return true;
 
-        if (month == 6 && (day == 5 || day == 6 || day == 21))
+        if (month is 6 && (day is 5 or 6 or 21))
             return true;
 
-        if (month == 7)
+        if (month is 7)
             return true;
 
-        if (month == 11 && day == 1)
+        if (month is 11 && day is 1)
             return true;
 
-        if (month == 12 && (day == 24 || day == 25 || day == 26 || day == 31))
+        if (month is 12 && (day is 24 or 25 or 26 or 31))
             return true;
 
         return false;
