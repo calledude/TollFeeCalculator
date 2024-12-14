@@ -56,20 +56,25 @@ public static class TollCalculator
         return Math.Min(totalFee, 60);
     }
 
-    private static bool IsTollFreeVehicle(IVehicle vehicle)
-    {
-        if (vehicle == null)
-            return false;
-
-        return vehicle.IsTollFree;
-    }
-
+    /// <summary>
+    /// Calculate the fee for a certain date and time.
+    /// </summary>
+    /// <param name="date">Date and time of a certain toll pass.</param>
+    /// <returns>The fee associated with passing on the given date and time.</returns>
     public static int GetTollFee(DateTimeOffset date)
     {
         if (IsTollFreeDate(date))
             return 0;
 
         return _feeCalculationChain.CalculateFee(date);
+    }
+
+    private static bool IsTollFreeVehicle(IVehicle vehicle)
+    {
+        if (vehicle == null)
+            return false;
+
+        return vehicle.IsTollFree;
     }
 
     private static bool IsTollFreeDate(DateTimeOffset date)
