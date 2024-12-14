@@ -1,6 +1,6 @@
 ﻿using Norion;
+using Norion.Calendar;
 using Norion.Vehicles;
-using System.Diagnostics.CodeAnalysis;
 
 namespace TollFeeCalculator;
 
@@ -74,36 +74,47 @@ public static class TollCalculator
 
     private static bool IsTollFreeDate(DateTime date)
     {
-        var month = date.Month;
-        var day = date.Day;
-
         if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
             return true;
 
-        if (month is 1 && day is 1)
-            return true;
+        var month = (Month)date.Month;
+        var day = date.Day;
 
-        if (month is 3 && (day is 28 or 29))
-            return true;
+        // These dates are all very clearly holiday dates
+        // Just noting that down here since holidays aren't... Universal.
+        // So while this switch might hold for, say, Sweden, it might be completely wrong for another country.
+        // Norway for example has 17th of May as a national holiday rather than the equivalent 6th of June in Sweden.
+        // Possibly revise this by having an implementation of 'NationalCalendar' that holds information of such holidays instead.
+        //
+        // return calendar.IsPublicHoliday(date);
+        return (month, day) switch
+        {
+            (Month.January, 1) => true,
 
-        if (month is 4 && (day is 1 or 30))
-            return true;
+            // Possibly easter? Will fluctuate from year to year, might have held for 2013
+            (Month.March, 28) => true,
+            (Month.March, 29) => true,
 
-        if (month is 5 && (day is 1 or 8 or 9))
-            return true;
+            (Month.April, 1) => true,
+            (Month.April, 30) => true,
 
-        if (month is 6 && (day is 5 or 6 or 21))
-            return true;
+            (Month.May, 1) => true,
+            (Month.May, 8) => true,
+            (Month.May, 9) => true,
 
-        if (month is 7)
-            return true;
+            (Month.June, 5) => true,
+            (Month.June, 6) => true,
+            (Month.June, 21) => true,
 
-        if (month is 11 && day is 1)
-            return true;
+            (Month.July, _) => true,
 
-        if (month is 12 && (day is 24 or 25 or 26 or 31))
-            return true;
+            (Month.November, 1) => true,
 
-        return false;
+            (Month.December, 24) => true,
+            (Month.December, 25) => true,
+            (Month.December, 26) => true,
+            (Month.December, 31) => true,
+            _ => false,
+        };
     }
 }
