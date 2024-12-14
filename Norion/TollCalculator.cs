@@ -34,10 +34,10 @@ public static class TollCalculator
 
         var intervalStart = dates[0];
         var totalFee = 0;
-        var baseFee = GetTollFee(intervalStart, vehicle);
+        var baseFee = GetTollFee(intervalStart);
         foreach (var date in dates)
         {
-            var nextFee = GetTollFee(date, vehicle);
+            var nextFee = GetTollFee(date);
 
             var diff = date - intervalStart;
             if (diff.TotalMinutes <= 60)
@@ -64,7 +64,7 @@ public static class TollCalculator
         return vehicle.IsTollFree;
     }
 
-    public static int GetTollFee(DateTime date, IVehicle vehicle)
+    public static int GetTollFee(DateTime date)
     {
         if (IsTollFreeDate(date))
             return 0;
