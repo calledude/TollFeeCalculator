@@ -27,6 +27,10 @@ public static class TollCalculator
         if (dates.Length == 0)
             return 0;
 
+        // If the vehicle is a toll free vehicle, we can skip calculating the fees for all the dates.
+        if (IsTollFreeVehicle(vehicle))
+            return 0;
+
         var intervalStart = dates[0];
         var totalFee = 0;
         var baseFee = GetTollFee(intervalStart, vehicle);
@@ -61,7 +65,7 @@ public static class TollCalculator
 
     public static int GetTollFee(DateTime date, IVehicle vehicle)
     {
-        if (IsTollFreeDate(date) || IsTollFreeVehicle(vehicle))
+        if (IsTollFreeDate(date))
             return 0;
 
         return _feeCalculationChain.CalculateFee(date);
