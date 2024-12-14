@@ -23,7 +23,7 @@ public static class TollCalculator
     /// <param name="vehicle">The vehicle</param>
     /// <param name="dates">Date and time of all passes on one day</param>
     /// <returns>The total toll fee for that day.</returns>
-    public static int GetTollFee(IVehicle vehicle, DateTime[] dates)
+    public static int GetTollFee(IVehicle vehicle, DateTimeOffset[] dates)
     {
         if (dates.Length == 0)
             return 0;
@@ -64,7 +64,7 @@ public static class TollCalculator
         return vehicle.IsTollFree;
     }
 
-    public static int GetTollFee(DateTime date)
+    public static int GetTollFee(DateTimeOffset date)
     {
         if (IsTollFreeDate(date))
             return 0;
@@ -72,7 +72,7 @@ public static class TollCalculator
         return _feeCalculationChain.CalculateFee(date);
     }
 
-    private static bool IsTollFreeDate(DateTime date)
+    private static bool IsTollFreeDate(DateTimeOffset date)
     {
         if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
             return true;

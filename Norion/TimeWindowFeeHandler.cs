@@ -14,9 +14,9 @@ public class TimeWindowFeeHandler : IFeeHandler
         _fee = fee;
     }
 
-    public int CalculateFee(DateTime time)
+    public int CalculateFee(DateTimeOffset time)
     {
-        var timeOnly = TimeOnly.FromDateTime(time);
+        var timeOnly = TimeOnly.FromDateTime(time.Date);
         if (_start >= timeOnly && _end <= timeOnly)
             return _fee;
 

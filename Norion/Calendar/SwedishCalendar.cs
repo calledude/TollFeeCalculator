@@ -2,7 +2,7 @@
 
 public class SwedishCalendar : ICalendar
 {
-    public bool IsPublicHoliday(DateTime date)
+    public bool IsPublicHoliday(DateTimeOffset date)
     {
         var month = (Month)date.Month;
         var day = date.Day;
