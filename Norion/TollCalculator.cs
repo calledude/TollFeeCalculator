@@ -6,16 +6,7 @@ namespace TollFeeCalculator;
 
 public static class TollCalculator
 {
-    private static readonly IFeeHandler _feeCalculationChain =
-        new TimeWindowFeeHandler(new TimeOnly(6, 0), new TimeOnly(6, 29), 8)
-            .SetNext(new TimeWindowFeeHandler(new TimeOnly(6, 30), new TimeOnly(6, 59), 13))
-            .SetNext(new TimeWindowFeeHandler(new TimeOnly(7, 0), new TimeOnly(7, 59), 18))
-            .SetNext(new TimeWindowFeeHandler(new TimeOnly(8, 0), new TimeOnly(8, 29), 13))
-            .SetNext(new TimeWindowFeeHandler(new TimeOnly(8, 30), new TimeOnly(14, 59), 8))
-            .SetNext(new TimeWindowFeeHandler(new TimeOnly(15, 0), new TimeOnly(15, 29), 13))
-            .SetNext(new TimeWindowFeeHandler(new TimeOnly(15, 0), new TimeOnly(16, 59), 18))
-            .SetNext(new TimeWindowFeeHandler(new TimeOnly(17, 0), new TimeOnly(17, 59), 13))
-            .SetNext(new TimeWindowFeeHandler(new TimeOnly(18, 0), new TimeOnly(18, 29), 8));
+    private static readonly IFeeHandler _feeCalculationChain = CreateFeeCalculationChain();
 
     /// <summary>
     /// Calculate the total toll fee for one day
@@ -73,5 +64,22 @@ public static class TollCalculator
 
         var calendar = CalendarFactory.GetCalendar();
         return calendar.IsPublicHoliday(date);
+    }
+
+    private static IFeeHandler CreateFeeCalculationChain()
+    {
+        var start = new TimeWindowFeeHandler(new TimeOnly(6, 0), new TimeOnly(6, 29), 8);
+
+        start
+            .SetNext(new TimeWindowFeeHandler(new TimeOnly(6, 30), new TimeOnly(6, 59), 13))
+            .SetNext(new TimeWindowFeeHandler(new TimeOnly(7, 0), new TimeOnly(7, 59), 18))
+            .SetNext(new TimeWindowFeeHandler(new TimeOnly(8, 0), new TimeOnly(8, 29), 13))
+            .SetNext(new TimeWindowFeeHandler(new TimeOnly(8, 30), new TimeOnly(14, 59), 8))
+            .SetNext(new TimeWindowFeeHandler(new TimeOnly(15, 0), new TimeOnly(15, 29), 13))
+            .SetNext(new TimeWindowFeeHandler(new TimeOnly(15, 0), new TimeOnly(16, 59), 18))
+            .SetNext(new TimeWindowFeeHandler(new TimeOnly(17, 0), new TimeOnly(17, 59), 13))
+            .SetNext(new TimeWindowFeeHandler(new TimeOnly(18, 0), new TimeOnly(18, 29), 8));
+
+        return start;
     }
 }
