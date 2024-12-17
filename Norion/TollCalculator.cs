@@ -51,9 +51,7 @@ public static class TollCalculator
 
     private static bool IsTollFreeVehicle(IVehicle vehicle)
     {
-        if (vehicle == null)
-            return false;
-
+        ArgumentNullException.ThrowIfNull(vehicle);
         return vehicle.IsTollFree;
     }
 
